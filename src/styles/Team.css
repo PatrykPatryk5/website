@@ -1,0 +1,742 @@
+.team {
+  background-color: var(--background-color);
+  padding: 6rem 2rem;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #050505 0%, #0a0a0a 100%);
+}
+
+/* Efekt cyberpunkowej siatki w tle */
+.team::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(90deg, rgba(0, 255, 157, 0.03) 1px, transparent 1px) 0 0 / 50px 50px,
+    linear-gradient(rgba(0, 255, 157, 0.03) 1px, transparent 1px) 0 0 / 50px 50px;
+  transform: perspective(500px) rotateX(60deg);
+  transform-origin: top;
+  animation: gridMove 20s linear infinite;
+}
+
+.team-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.team-header {
+  text-align: center;
+  margin-bottom: 6rem;
+  position: relative;
+}
+
+.team-header::before {
+  content: '<team>';
+  position: absolute;
+  top: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(0, 255, 157, 0.1);
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+.team-header::after {
+  content: '</team>';
+  position: absolute;
+  bottom: -2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(0, 255, 157, 0.1);
+  font-family: monospace;
+  font-size: 1rem;
+}
+
+.team-header h2 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #fff, var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: glitch 5s infinite;
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.team-header h2::before,
+.team-header h2::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #fff, var(--secondary-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.team-header h2::before {
+  animation: glitch-1 2s infinite;
+  clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  transform: translate(-2px, 2px);
+}
+
+.team-header h2::after {
+  animation: glitch-2 2s infinite;
+  clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+  transform: translate(2px, -2px);
+}
+
+.team-subtitle {
+  color: var(--text-secondary);
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+.team-section {
+  margin-bottom: 4rem;
+}
+
+.section-title {
+  color: var(--text-color);
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+  opacity: 0.9;
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: var(--secondary-color);
+  box-shadow: 0 0 10px var(--secondary-color);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2.5rem;
+  perspective: 2000px;
+}
+
+.team-card {
+  position: relative;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-content {
+  position: relative;
+  z-index: 2;
+  padding: 1.5rem;
+  background: rgba(17, 17, 17, 0.7);
+  border-radius: 15px;
+  border: 1px solid rgba(0, 255, 157, 0.1);
+}
+
+/* Upewnij się, że żadne elementy nie blokują kliknięcia */
+.member-header,
+.member-specialty,
+.skills-container,
+.member-stats,
+.member-socials {
+  pointer-events: none;
+}
+
+/* Tylko linki powinny reagować na kliknięcia */
+.social-link {
+  pointer-events: auto;
+}
+
+.role-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, rgba(0, 255, 157, 0.2), rgba(0, 184, 212, 0.2));
+  color: var(--secondary-color);
+  padding: 0.35rem 0.8rem;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  border: 1px solid rgba(0, 255, 157, 0.3);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  text-transform: uppercase;
+  z-index: 10;
+  white-space: nowrap;
+  box-shadow: 0 2px 10px rgba(0, 255, 157, 0.1);
+  max-width: calc(100% - 4rem);
+  width: auto;
+  line-height: 1;
+  text-align: center;
+}
+
+/* Dodajemy specjalne style dla długich nazw ról */
+.role-badge[data-role="Project Coordinator"],
+.role-badge[data-role="Head Administrator"],
+.role-badge[data-role="System Administrator"] {
+  font-size: 0.7rem;
+  padding: 0.35rem 0.6rem;
+}
+
+.corner {
+  width: 15px;
+  height: 15px;
+}
+
+.top-left {
+  top: 15px;
+  left: 15px;
+}
+
+.top-right {
+  top: 15px;
+  right: 15px;
+}
+
+.bottom-left {
+  bottom: 15px;
+  left: 15px;
+}
+
+.bottom-right {
+  bottom: 15px;
+  right: 15px;
+}
+
+.member-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.member-identity {
+  width: 100%;
+  text-align: center;
+}
+
+.member-name {
+  color: var(--text-color);
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+}
+
+.member-nickname {
+  color: var(--secondary-color);
+  font-family: monospace;
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* Specjalne style dla różnych ról */
+.role-badge[data-role="Project Coordinator"] {
+  background: linear-gradient(135deg, rgba(255, 215, 0, 0.2), rgba(255, 165, 0, 0.2));
+  color: #FFD700;
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.role-badge[data-role="Head Administrator"] {
+  background: linear-gradient(135deg, rgba(255, 0, 0, 0.2), rgba(255, 99, 71, 0.2));
+  color: #FF6347;
+  border-color: rgba(255, 99, 71, 0.3);
+}
+
+.role-badge[data-role="System Administrator"] {
+  background: linear-gradient(135deg, rgba(0, 191, 255, 0.2), rgba(30, 144, 255, 0.2));
+  color: #00BFFF;
+  border-color: rgba(30, 144, 255, 0.3);
+}
+
+.role-badge[data-role="Backend Developer"] {
+  background: linear-gradient(135deg, rgba(147, 112, 219, 0.2), rgba(138, 43, 226, 0.2));
+  color: #9370DB;
+  border-color: rgba(147, 112, 219, 0.3);
+}
+
+.role-badge[data-role="Frontend Developer"] {
+  background: linear-gradient(135deg, rgba(255, 105, 180, 0.2), rgba(255, 20, 147, 0.2));
+  color: #FF69B4;
+  border-color: rgba(255, 105, 180, 0.3);
+}
+
+.role-badge[data-role="AI Developer"] {
+  background: linear-gradient(135deg, rgba(0, 255, 157, 0.2), rgba(0, 184, 212, 0.2));
+  color: #00FF9D;
+  border-color: rgba(0, 255, 157, 0.3);
+}
+
+/* Efekt hover dla role-badge */
+.team-card:hover .role-badge {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 255, 157, 0.15);
+}
+
+/* Animacja dla role-badge */
+.role-badge::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transform: translateX(-100%);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%) rotate(45deg);
+  }
+  100% {
+    transform: translateX(100%) rotate(45deg);
+  }
+}
+
+.specialty {
+  color: var(--text-color);
+  font-size: 1.1rem;
+  margin: 1rem 0;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 255, 157, 0.1);
+  transform: translateZ(15px);
+}
+
+.skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.skill-tag {
+  background: rgba(0, 255, 157, 0.1);
+  color: var(--secondary-color);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  transform: translateZ(20px);
+  transition: all 0.3s ease;
+  border: 1px solid rgba(0, 255, 157, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.skill-tag:hover {
+  background: var(--secondary-color);
+  color: var(--background-color);
+  transform: translateZ(30px) scale(1.1);
+  box-shadow: 0 0 20px rgba(0, 255, 157, 0.5);
+}
+
+.member-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.stat {
+  text-align: center;
+  transform: translateZ(5px);
+}
+
+.stat-value {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.card-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  border-radius: 15px;
+  z-index: 1;
+}
+
+.bg-circle {
+  position: absolute;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle, rgba(0, 255, 157, 0.1) 0%, transparent 70%);
+  top: -25%;
+  left: -25%;
+  animation: rotate 20s linear infinite;
+}
+
+.bg-grid {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 255, 157, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 157, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+  opacity: 0.5;
+}
+
+.team-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.particle {
+  width: 4px;
+  height: 4px;
+  background: var(--secondary-color);
+  border-radius: 50%;
+  box-shadow: 0 0 10px var(--secondary-color);
+  filter: blur(1px);
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(0, 255, 157, 0.8);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateZ(20px) translateY(0);
+  }
+  50% {
+    transform: translateZ(20px) translateY(-5px);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float-particle {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--x, 100px), var(--y, 100px));
+    opacity: 0;
+  }
+}
+
+/* Dodaj losowe pozycje startowe i końcowe dla cząsteczek */
+.particle:nth-child(1) { --x: 100px; --y: -200px; }
+.particle:nth-child(2) { --x: -150px; --y: 300px; }
+.particle:nth-child(3) { --x: 300px; --y: 100px; }
+/* ... dodaj więcej wariantów dla pozostałych cząsteczek */
+
+/* Dodaj więcej pozycji dla cząsteczek */
+.particle:nth-child(4) { --x: -200px; --y: 150px; }
+.particle:nth-child(5) { --x: 250px; --y: -250px; }
+.particle:nth-child(6) { --x: -300px; --y: -150px; }
+.particle:nth-child(7) { --x: 180px; --y: 200px; }
+.particle:nth-child(8) { --x: -180px; --y: -200px; }
+.particle:nth-child(9) { --x: 150px; --y: -300px; }
+.particle:nth-child(10) { --x: -150px; --y: 250px; }
+
+@keyframes scanline {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes gridMove {
+  0% {
+    transform: perspective(500px) rotateX(60deg) translateY(0);
+  }
+  100% {
+    transform: perspective(500px) rotateX(60deg) translateY(50px);
+  }
+}
+
+@keyframes glitch {
+  0%, 100% { transform: none; }
+  20% { transform: skewX(-15deg); }
+  40% { transform: skewX(10deg); }
+  60% { transform: skewX(-10deg); }
+  80% { transform: skewX(5deg); }
+}
+
+@keyframes glitch-1 {
+  0% {
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  }
+  50% {
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  }
+  100% {
+    clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+  }
+  50% {
+    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+  }
+  100% {
+    clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+  }
+}
+
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Modyfikacja role-badge dla różnych ról */
+.role-badge.management {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+}
+
+.role-badge.admin {
+  background: linear-gradient(135deg, #00ff9d, #00b8d4);
+}
+
+.role-badge.developer {
+  background: linear-gradient(135deg, #FF4D4D, #F9CB28);
+}
+
+/* Modyfikacja animacji dla różnych sekcji */
+.management .bg-circle {
+  background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+}
+
+.admin .bg-circle {
+  background: radial-gradient(circle, rgba(0, 255, 157, 0.1) 0%, transparent 70%);
+}
+
+.developer .bg-circle {
+  background: radial-gradient(circle, rgba(255, 77, 77, 0.1) 0%, transparent 70%);
+}
+
+/* Modyfikujemy style dla różnych ról menedżerskich */
+.role-badge.management[data-role="Project Coordinator"] {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+}
+
+.role-badge.management[data-role="Marketing Manager"] {
+  background: linear-gradient(135deg, #FF6B6B, #FF8E53);
+}
+
+.role-badge.management[data-role="Business Development Manager"] {
+  background: linear-gradient(135deg, #4CAF50, #8BC34A);
+}
+
+/* Dodajemy specjalne efekty dla kart menedżerskich */
+.management .card-decoration::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 70% 70%, rgba(255, 165, 0, 0.1) 0%, transparent 50%);
+  opacity: 0.5;
+  z-index: -1;
+}
+
+.management .skill-tag {
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.management .skill-tag:hover {
+  background: linear-gradient(135deg, #FFD700, #FFA500);
+  border-color: transparent;
+}
+
+/* Modyfikujemy animacje dla sekcji zarządzania */
+.management .bg-circle {
+  animation: rotateAndPulse 15s infinite linear;
+}
+
+@keyframes rotateAndPulse {
+  0% {
+    transform: rotate(0deg) scale(1);
+    opacity: 0.1;
+  }
+  50% {
+    transform: rotate(180deg) scale(1.2);
+    opacity: 0.2;
+  }
+  100% {
+    transform: rotate(360deg) scale(1);
+    opacity: 0.1;
+  }
+}
+
+/* Dodajemy specjalne statystyki dla menedżerów */
+.management .stat-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: linear-gradient(to right, #FFD700, #FFA500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Dodajemy specjalny efekt hover dla kart menedżerskich */
+.team-card.management:hover {
+  transform: translateY(-20px) rotateX(10deg) rotateY(10deg);
+  box-shadow: 
+    0 10px 30px rgba(255, 215, 0, 0.2),
+    0 0 60px rgba(255, 165, 0, 0.1),
+    inset 0 0 30px rgba(255, 215, 0, 0.1);
+}
+
+/* Dodaj nowe style dla karty członka zespołu */
+
+.github-link {
+  margin-bottom: 1.5rem;
+}
+
+.github-icon {
+  width: 24px;
+  height: 24px;
+  fill: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.github-icon:hover {
+  fill: var(--secondary-color);
+  transform: scale(1.1);
+}
+
+.member-bio {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border: 1px solid rgba(0, 255, 157, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.member-bio::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(45deg, transparent, rgba(0, 255, 157, 0.05), transparent);
+  animation: bio-shine 3s infinite;
+}
+
+.member-bio p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes bio-shine {
+  0% {
+    transform: translateX(-100%) translateY(-100%);
+  }
+  100% {
+    transform: translateX(100%) translateY(100%);
+  }
+}
+
+.member-socials {
+  display: flex;
+  gap: 2rem;
+  margin: 1.5rem 0;
+  justify-content: center;
+}
+
+.member-socials .social-link {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  font-size: 1.8rem;
+  background: rgba(17, 17, 17, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.member-socials .social-link.github {
+  color: #fff;
+}
+
+.member-socials .social-link.linkedin {
+  color: #0077b5;
+}
+
+.member-socials .social-link.discord {
+  color: #5865F2;
+}
+
+.member-socials .social-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 255, 157, 0.2);
+}
+
+.member-socials .social-link.github:hover {
+  background: #24292e;
+  border-color: #fff;
+}
+
+.member-socials .social-link.linkedin:hover {
+  background: #0077b5;
+  color: #fff;
+  border-color: #0077b5;
+} 

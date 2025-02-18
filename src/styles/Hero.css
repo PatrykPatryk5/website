@@ -1,0 +1,338 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  background: var(--background-color);
+  padding-top: 80px;
+}
+
+.hero-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.cyber-grid {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  background-image: 
+    linear-gradient(90deg, rgba(0, 255, 157, 0.03) 1px, transparent 1px),
+    linear-gradient(rgba(0, 255, 157, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  transform: perspective(500px) rotateX(60deg);
+  animation: gridMove 20s linear infinite;
+}
+
+.glow-effect {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at 50% 0%,
+    rgba(0, 255, 157, 0.15) 0%,
+    rgba(0, 255, 157, 0.05) 30%,
+    transparent 70%
+  );
+}
+
+.particles-container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.hero-particle {
+  position: absolute;
+  background: var(--secondary-color);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: floatParticle var(--duration) ease-in-out infinite;
+  animation-delay: var(--delay);
+  width: var(--size);
+  height: var(--size);
+  left: var(--x);
+  top: var(--y);
+  filter: blur(1px);
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  width: 100%;
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hero-text-container {
+  max-width: 600px;
+}
+
+.glitch-text {
+  font-size: 4rem;
+  font-weight: 800;
+  color: var(--text-color);
+  position: relative;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 2rem;
+  animation: textGlow 2s ease-in-out infinite alternate;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0.8;
+}
+
+.glitch-text::before {
+  animation: glitch-1 0.8s infinite;
+  color: #0ff;
+  clip: rect(24px, 550px, 90px, 0);
+  transform: translate(-2px, -2px);
+}
+
+.glitch-text::after {
+  animation: glitch-2 1.3s infinite;
+  color: #f0f;
+  clip: rect(85px, 550px, 140px, 0);
+  transform: translate(2px, 2px);
+}
+
+.hero-content p {
+  font-size: 1.4rem;
+  color: var(--text-secondary);
+  margin-bottom: 3rem;
+  line-height: 1.6;
+}
+
+.cta-button {
+  padding: 1.2rem 2.5rem;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, rgba(0, 255, 157, 0.2), rgba(0, 184, 212, 0.2));
+  color: var(--secondary-color);
+  border: 1px solid rgba(0, 255, 157, 0.3);
+  border-radius: 30px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 5px 20px rgba(0, 255, 157, 0.3),
+    0 0 30px rgba(0, 255, 157, 0.2);
+  background: linear-gradient(135deg, rgba(0, 255, 157, 0.3), rgba(0, 184, 212, 0.3));
+}
+
+.hero-decoration {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  margin-left: 2rem;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.tech-circle {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 2px solid rgba(0, 255, 157, 0.2);
+  border-radius: 50%;
+  animation: rotate 20s linear infinite;
+  pointer-events: none;
+}
+
+.tech-circle::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 2px solid rgba(0, 255, 157, 0.1);
+  border-radius: 50%;
+  animation: rotate 15s linear infinite reverse;
+}
+
+.floating-elements {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.floating-element {
+  position: absolute;
+  color: var(--secondary-color);
+  font-family: monospace;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 255, 157, 0.1);
+  border-radius: 20px;
+  animation: float 3s ease-in-out infinite;
+  animation-delay: var(--delay);
+  &:nth-child(1) {
+    top: 10%;
+    left: 20%;
+  }
+  &:nth-child(2) {
+    top: 30%;
+    right: 15%;
+  }
+  &:nth-child(3) {
+    bottom: 25%;
+    left: 10%;
+  }
+  &:nth-child(4) {
+    bottom: 40%;
+    right: 20%;
+  }
+  &:nth-child(5) {
+    top: 50%;
+    left: 30%;
+  }
+}
+
+@keyframes gridMove {
+  0% {
+    transform: perspective(500px) rotateX(60deg) translateY(0);
+  }
+  100% {
+    transform: perspective(500px) rotateX(60deg) translateY(50px);
+  }
+}
+
+@keyframes floatParticle {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(
+      calc(var(--x) * 0.2),
+      calc(var(--y) * 0.2)
+    );
+  }
+}
+
+@keyframes textGlow {
+  0% {
+    text-shadow: 0 0 10px rgba(0, 255, 157, 0.5);
+  }
+  100% {
+    text-shadow: 0 0 20px rgba(0, 255, 157, 0.8);
+  }
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+  33% {
+    transform: translate(10px, -10px) rotate(2deg);
+  }
+  66% {
+    transform: translate(-5px, 15px) rotate(-2deg);
+  }
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glitch-1 {
+  0% {
+    clip: rect(132px, 350px, 101px, 30px);
+  }
+  100% {
+    clip: rect(49px, 350px, 88px, 30px);
+  }
+}
+
+@keyframes glitch-2 {
+  0% {
+    clip: rect(65px, 350px, 119px, 30px);
+  }
+  100% {
+    clip: rect(79px, 350px, 86px, 30px);
+  }
+}
+
+.floating-element::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(0, 255, 157, 0.2), transparent);
+  filter: blur(4px);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.floating-element:hover::after {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .glitch-text {
+    font-size: 2.5rem;
+  }
+
+  .hero-content p {
+    font-size: 1.2rem;
+  }
+
+  .hero-decoration {
+    width: 300px;
+    height: 300px;
+    margin: 2rem auto 0;
+  }
+
+  .floating-element {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    
+    &:nth-child(1) { top: 5%; left: 15%; }
+    &:nth-child(2) { top: 25%; right: 10%; }
+    &:nth-child(3) { bottom: 20%; left: 5%; }
+    &:nth-child(4) { bottom: 35%; right: 15%; }
+    &:nth-child(5) { top: 45%; left: 25%; }
+  }
+} 

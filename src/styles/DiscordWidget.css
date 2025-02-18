@@ -1,0 +1,240 @@
+.discord-section {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 2rem;
+}
+
+.discord-particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+}
+
+.discord-particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #5865F2;
+  border-radius: 50%;
+  animation: particleFloat 20s infinite linear;
+  opacity: 0.3;
+  animation-delay: var(--delay);
+}
+
+.discord-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4rem;
+  position: relative;
+  z-index: 2;
+}
+
+.discord-content {
+  flex: 1;
+}
+
+.discord-card {
+  background: rgba(17, 17, 17, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  padding: 3rem;
+  position: relative;
+  border: 1px solid rgba(88, 101, 242, 0.2);
+  overflow: hidden;
+}
+
+.discord-header {
+  margin-bottom: 2rem;
+}
+
+.discord-title {
+  font-size: 3rem;
+  background: linear-gradient(to right, #fff, #5865F2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 1rem;
+}
+
+.accent-bar {
+  width: 60px;
+  height: 3px;
+  background: #5865F2;
+  margin: 1rem 0;
+  position: relative;
+}
+
+.discord-description {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  line-height: 1.8;
+  margin-bottom: 3rem;
+  max-width: 600px;
+}
+
+.discord-features {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.discord-feature {
+  background: rgba(88, 101, 242, 0.1);
+  padding: 1.5rem;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: all 0.3s ease;
+}
+
+.discord-feature:hover {
+  transform: translateY(-5px);
+  background: rgba(88, 101, 242, 0.15);
+}
+
+.feature-icon {
+  font-size: 1.5rem;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(88, 101, 242, 0.15);
+  border-radius: 12px;
+  color: #5865F2;
+  transition: all 0.3s ease;
+}
+
+.discord-feature:hover .feature-icon {
+  transform: scale(1.1);
+  background: rgba(88, 101, 242, 0.25);
+  color: #fff;
+}
+
+.feature-text h3 {
+  color: #fff;
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.feature-text p {
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.discord-join {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  background: #5865F2;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.discord-join:hover {
+  background: #4752C4;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3);
+}
+
+.widget-card {
+  background: rgba(17, 17, 17, 0.8);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-radius: 25px;
+  padding: 1rem;
+  position: relative;
+  border: 1px solid rgba(88, 101, 242, 0.2);
+  overflow: hidden;
+}
+
+.widget-card iframe {
+  border-radius: 15px;
+  position: relative;
+  z-index: 2;
+}
+
+.widget-decoration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.glow-effect {
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 50% 50%, rgba(88, 101, 242, 0.1), transparent 70%);
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes particleFloat {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-100vh) rotate(360deg);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@media (max-width: 1200px) {
+  .discord-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .discord-features {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .widget-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .discord-section {
+    padding: 4rem 1rem;
+  }
+
+  .discord-title {
+    font-size: 2.5rem;
+  }
+
+  .discord-features {
+    grid-template-columns: 1fr;
+  }
+
+  .discord-card {
+    padding: 2rem;
+  }
+} 
